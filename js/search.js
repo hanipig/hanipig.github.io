@@ -17,6 +17,7 @@
     } else if ((document.body) && (document.body.clientHeight)) {
         winHeight = parseInt(document.body.clientHeight);
     }
+    
     searchMask.style.width = winWidth + 'px';
     searchMask.style.height = winHeight + 'px';
 
