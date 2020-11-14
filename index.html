@@ -440,7 +440,7 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/11/14/hello-world/">
+                    <a href="/hello-world/">
                         <div class="card-image">
                             
                             
@@ -594,23 +594,22 @@
 
     <!-- 搜索遮罩框 -->
 <div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
-            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
-                   class="search-input">
-        </div>
-        <div id="searchResult"></div>
+  <div class="modal-content">
+    <div class="search-header">
+      <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+      <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+             class="search-input">
     </div>
+    <div id="searchResult"></div>
+  </div>
 </div>
 
 <script src="/js/search.js"></script>
 <script type="text/javascript">
-$(function () {
+  $(function () {
     searchFunc("/search.xml", 'searchInput', 'searchResult');
-});
+  });
 </script>
-
     <!-- 回到顶部按钮 -->
 <div id="backTop" class="top-scroll">
     <a class="btn-floating btn-large waves-effect waves-light" href="#!">
