@@ -16,19 +16,20 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <meta name="description" content="关于页">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://example.com/about/index.html">
+  <meta name="description" content="多入口打包 抽离 css 文件：mini-css-extract-plugin 抽离公共代码、第三方代码：添加 optimization.splitChunks（initial：入口 chunk，对异步导入的文件不处理；async：异步 chunk，只对异步导入的文件处理；all：全部 chunk）、optimization.cacheGroups.vendor（第三方模块）、optimizat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack">
+<meta property="og:url" content="http://example.com/2021/11/20/Webpack/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="关于页">
+<meta property="og:description" content="多入口打包 抽离 css 文件：mini-css-extract-plugin 抽离公共代码、第三方代码：添加 optimization.splitChunks（initial：入口 chunk，对异步导入的文件不处理；async：异步 chunk，只对异步导入的文件处理；all：全部 chunk）、optimization.cacheGroups.vendor（第三方模块）、optimizat">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-11-20T14:07:42.000Z">
-<meta property="article:modified_time" content="2021-11-20T14:09:01.235Z">
+<meta property="article:published_time" content="2021-11-20T14:44:22.624Z">
+<meta property="article:modified_time" content="2021-11-20T15:05:47.324Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Webpack">
 <meta name="twitter:card" content="summary_large_image">
   
-  <title>about - Hexo</title>
+  <title>Webpack - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -73,7 +74,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -150,9 +151,43 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="about">
+            <span class="h2" id="subtitle" title="Webpack">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-20 22:44" pubdate>
+        2021年11月20日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      5 分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -165,26 +200,175 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
+      
 
-<article class="page-content">
-  <h3 id="关于页"><a href="#关于页" class="headerlink" title="关于页"></a>关于页</h3>
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Webpack</h1>
+            
+            <div class="markdown-body">
+              <ul>
+<li>多入口打包</li>
+<li>抽离 css 文件：mini-css-extract-plugin</li>
+<li>抽离公共代码、第三方代码：添加 optimization.splitChunks（initial：入口 chunk，对异步导入的文件不处理；async：异步 chunk，只对异步导入的文件处理；all：全部 chunk）、optimization.cacheGroups.vendor（第三方模块）、optimization。cacheGroups.common（公共模块）</li>
+<li>异步加载、处理 jxs、vue（vue-loader）</li>
+<li>module、chunk、bundle 的区别<blockquote>
+<p>module：各个源码文件，webpack 中一切皆模块</p>
+<p>chunk：多个模块合成的，如 entry、import()、splitChunk</p>
+<p>bundle：最终的输出文件</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><ul>
+<li><p>开发环境</p>
+<ul>
+<li>优化打包构建速度<ul>
+<li>HMR(hot module replacement):热模块替换/模块热替换<blockquote>
+<p>作用：一个模块发生变化，只会重新打包这一个模块（而不是打包所有模块），极大提升构建速度</p>
+<p>样式文件：可以使用 HMR 功能：因为 style-loader 内部实现了</p>
+<p>js 文件：默认不能使用 HMR 功能</p>
+<p>html 文件：默认不能使用 HMR 功能，同时会导致 html 文件不能热更新了(解决：修改 entry 成数组形式，并把 index.html 文件也加入)</p>
+<p>html 文件不用 HMR,js 文件需要（只能处理非入口文件）</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>优化代码调试<ul>
+<li>source-map：一种提供源代码到构建后代码映射技术</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>生产环境</p>
+<ul>
+<li><p>优化打包构建速度</p>
+<ul>
+<li>oneOf：只会匹配一个 loader ，不能有两个配置处理同一种类型文件</li>
+<li>缓存：babel 缓存（直接配置 cacheDirectory: true,让第二次打包构建速度更快）、文件资源缓存<blockquote>
+<p>hash：每次构建时会生成一个唯一的 hash 值，缺点:js css 使用同一个 hash 值，如果重新打包，可能会导致 js css 缓存失效</p>
+<p>chunkhash：根据 chunk 生成的 hash,如果打包来源于同一个 chunk，那么 hash 值就一样、缺点：js 和 css 的 hash 值还是一样，因为 css 是在 js 中被引入的，所以同属于一个 chunk</p>
+<p>contenthash：根据文件的内容生成 hash,根据文件的内容生成的 hash,不同文件 hash 值一定不一样（让代码上线运行缓存更好使用）</p>
+</blockquote>
+</li>
+<li>多进程打包 thread-loader</li>
+<li>externals 拒绝指定包被打包进来（比如采用 cdn 引用进来）</li>
+<li>dll 动态连接库：使用 dll 技术对某些库进行单独打包</li>
+</ul>
+</li>
+<li><p>优化代码运行性能</p>
+<ul>
+<li><p>tree shaking（去除无用代码，减少代码体积）</p>
+<blockquote>
+<p>前提条件（1.使用 es6 模块化 2.开启 production 模式 ）</p>
+<p>可搭配 sideEffect 配置防止 css less…等资源被误当做无用代码被过滤</p>
+</blockquote>
+</li>
+<li><p>代码分割（code split）</p>
+<ul>
+<li><p>多入口实现：有一个入口，最终输出就有一个 bundle</p>
+</li>
+<li><p>optimization.splitChunks.chunks：’all’</p>
+<blockquote>
+<p>1.可以将 node_modules 中的代码单独打包成一个 chunk 最终输出</p>
+<p>2.自动分析多入口 chunk 中，有没有公共的文件，如果有会打包成单独的一个 chunk</p>
+</blockquote>
+</li>
+<li><p>通过 js 代码，让某个文件被单独打包成一个 chunk（import 动态导入语法：能将某个文件单独打包）</p>
+<blockquote>
+<p>import(/*webpackChunkName: ‘指定打包后的 chunkname’*/‘./文件’).then((result) =&gt; {</p>
+</blockquote>
+<p>}).then((err) =&gt; {})</p>
+</li>
+</ul>
+</li>
+<li><p>懒加载 lazy loading（当文件需要使用时才加载）、预加载（预加载会在使用之前，提前加载 js 文件）</p>
+<blockquote>
+<p>正常加载可以理解为并行加载（同一时间加载多个文件），预加载：等其他资源加载完毕，浏览器空闲了，再偷偷加载资源（低版本浏览器有兼容性问题，慎用）<br>import(/*webpackChunkName: ‘指定打包后的 chunkname’, webpackPrefetch: true */‘./文件’).then((result) =&gt; {</p>
+</blockquote>
+<p>}).then((err) =&gt; {})</p>
+</li>
+<li><p>PWA 渐进式网络开发应用程序（离线可访问）：workbox –&gt; workbox-webpack-plugin</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-  
-</article>
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Webpack/">Webpack</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/20/Vue%E5%8E%9F%E7%90%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vue 原理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/20/%E5%B8%B8%E8%A7%81%E6%89%8B%E5%86%99%E9%A2%98/">
+                        <span class="hidden-mobile">常见手写题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     

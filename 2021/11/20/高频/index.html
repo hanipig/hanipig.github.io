@@ -1,0 +1,677 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <meta name="description" content="JavaScript 讲讲 js 数据类型？基本和引用的区别？symbol 和 bigint 讲一讲应用场景？   分基本数据类型、引用类型 基本：string，number，boolean，undefined，null，symbol，bigint；引用：object 基本数据类型按值访问，保存在栈中，存储大小固定；引用类型按引用访问，存储在内存中，大小不定 Symbol 指的是独一无二的值。每个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高频">
+<meta property="og:url" content="http://example.com/2021/11/20/%E9%AB%98%E9%A2%91/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="JavaScript 讲讲 js 数据类型？基本和引用的区别？symbol 和 bigint 讲一讲应用场景？   分基本数据类型、引用类型 基本：string，number，boolean，undefined，null，symbol，bigint；引用：object 基本数据类型按值访问，保存在栈中，存储大小固定；引用类型按引用访问，存储在内存中，大小不定 Symbol 指的是独一无二的值。每个">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-20T14:44:22.639Z">
+<meta property="article:modified_time" content="2021-11-20T15:04:55.716Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="高频">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>高频 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Hanipig</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="高频">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-20 22:44" pubdate>
+        2021年11月20日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">高频</h1>
+            
+            <div class="markdown-body">
+              <h3 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h3><ul>
+<li><p>讲讲 js 数据类型？基本和引用的区别？symbol 和 bigint 讲一讲应用场景？</p>
+<blockquote>
+<ol>
+<li>分基本数据类型、引用类型</li>
+<li>基本：string，number，boolean，undefined，null，symbol，bigint；引用：object</li>
+<li>基本数据类型按值访问，保存在栈中，存储大小固定；引用类型按引用访问，存储在内存中，大小不定</li>
+<li>Symbol 指的是独一无二的值。每个通过 Symbol() 生成的值都是唯一的，通常用来生成对象属性名，为避免重复；BigInt 数据类型提供了一种方法来表示大于 2^53 的整数。BigInt 可以表示任意大的整数。解决超出 2^53 数字范围精度丢失问题</li>
+</ol>
+</blockquote>
+</li>
+<li><p>判断数据类型的方法？instanceof 原理?判断空对象？ typof null？typeof NaN？</p>
+<blockquote>
+<ol>
+<li>typeof、instanceof、isArray、Object.prototype.toString()</li>
+<li>typeof 可能的值：string、number、boolean、undefined、sysbol、bigint、function、object；typeof 能检测出除 null 的其他基本类型，不能明确区分是哪种引用类型，可通过 instancof 检测是否是某种引用类型或者 使用 Object.prototype.toString</li>
+<li>判断对象是否为空：（1）JSON.stringify(obj) === “{}”（2）for in 判断（3）ES6 Object.keys()（4）Object.getOwnPropertyNames()方法</li>
+</ol>
+</blockquote>
+</li>
+<li><p>var/let/const 区别？暂时性死区？块级作用域？const a = {}; a.x = 1 能不能修改？</p>
+<blockquote>
+<p>var 声明提升，可重复声明；let、const 添加了块级作用域，约束了声明提升，在声明之前不能使用，不然会报错（暂时性死区），不能重复声明；const 声明的时候就要赋值，而且不能重新赋值（但是引用类型可修改属性）</p>
+</blockquote>
+</li>
+<li><p>说说你对函数式编程的理解？函数柯里化的理解？平时的使用场景？</p>
+<blockquote>
+<ol>
+<li>简单说，”函数式编程”是一种”编程范式”（programming paradigm），也就是如何编写程序的方法论.它具有以下特性：闭包和高阶函数、惰性计算、递归、函数是”第一等公民”、只用”表达式”</li>
+<li>在一个函数中，首先填充几个参数，然后再返回一个新的函数的技术，称为函数的柯里化。通常可用于在不侵入函数的前提下，为函数 预置通用参数，供多次重复调用。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>防抖、节流的含义，使用场景？手写一下？</p>
+<blockquote>
+<ol>
+<li>所谓防抖，就是指触发事件后在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。</li>
+<li>所谓节流，就是指连续触发事件但是在 n 秒中只执行一次函数。节流会稀释函数的执行频率。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>call、apply、bind 区别？bind 实现？bind 之后还能修改 this 指向吗？为什么？</p>
+<blockquote>
+<ol>
+<li>相同点：三者都可修改函数运行时的 this 指向</li>
+<li>不同点：bind 返回修改 this 后的函数，并不会立即执行函数；apply、call 修改完 this 立即执行；apply 于 call 区别在于传参不同，前者传入数组，后者逐个参数传入</li>
+<li>bind 之后不能修改 this 的指向</li>
+</ol>
+</blockquote>
+</li>
+<li><p>闭包概念，最主要的还是问闭包的场景？</p>
+</li>
+<li><p>用 es5 实现 es6 类的继承？各种继承</p>
+</li>
+<li><p>深拷贝与浅拷贝？常用方法？手写一个深拷贝函数？</p>
+</li>
+<li><p>说说你知道的 JavaScript 设计模式？观察者和发布订阅的区别？手写一个发布订阅？</p>
+</li>
+<li><p>说说对你对 JavaScript 异步编程的理解？</p>
+</li>
+<li><p>ES Module 与 CommonJS 模块的差异？两者互相加载的方式？一般会扯到 AMD</p>
+</li>
+<li><p>Promise.all、race、allSettled 概念、手写？很多手写题都会用到，比如用 promise 实现请求并发个数限制？</p>
+</li>
+<li><p>对象创建？</p>
+<ul>
+<li><ol>
+<li>对象字面量模式：</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>工厂模式</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createPerson</span> (<span class="hljs-params">name, age</span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> o = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>();<br>  o.name = name;<br>  o.age = age;<br>  o.sayName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name);<br>  &#125;<br>  <span class="hljs-keyword">return</span> o;<br>&#125;<br><span class="hljs-keyword">let</span> person1 = createPerson(<span class="hljs-string">&quot;sup h&quot;</span>, <span class="hljs-number">24</span>);<br></code></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>可解决多个类似对象的问题，但没有解决对象标识问题（instanceof）；</p>
+</blockquote>
+<ul>
+<li><ol start="3">
+<li> 构造函数模式</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span>(<span class="hljs-params">name, age</span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.name = name;<br>  <span class="hljs-built_in">this</span>.age = age;<br>  <span class="hljs-built_in">this</span>.sayName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name);<br>  &#125;<br>&#125;<br><span class="hljs-keyword">let</span> person1 = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&quot;sup h&quot;</span>, <span class="hljs-number">24</span>);<br></code></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>可确保实例被标识为特定类型，但其定义的方法会在每个实例上都创建一遍；即使把函数定义转移到构造函数外部可解决重复创建的问题，但是会污染全局函数。</p>
+</blockquote>
+<ul>
+<li><ol start="4">
+<li>原型模式</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span> (<span class="hljs-params"></span>) </span>&#123;&#125;<br><br>Person.prototype.name = <span class="hljs-string">&quot;sup h&quot;</span>;<br>Person.prototype.age = <span class="hljs-number">24</span>;<br>Person.prototype.sayName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name);<br>&#125;<br><br><span class="hljs-keyword">let</span> person1 = <span class="hljs-keyword">new</span> Person();<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>好处是，在它上面定义的属性和方法可被对象实例共享；缺点是，（1）弱化了构造函数传递初始化参数的能力，会导致所有实例默认都取得相同的属性值（2）共享特性（针对引用类型）</p>
+</blockquote>
+</li>
+<li><p>对象继承？</p>
+<ul>
+<li><ol>
+<li>原型链</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">//父类</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SuperType</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.property = <span class="hljs-literal">true</span>;<br>&#125;<br><br>SuperType.prototype.getSuperValue = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.property;<br>&#125;<br><br><span class="hljs-comment">//子类</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SubType</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.subProperty = <span class="hljs-literal">false</span>;<br>&#125;<br><br>SubType.prototype = <span class="hljs-keyword">new</span> SuperType();<br><br>SubType.prototype.getSubValue = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.subProperty;<br>&#125;<br><br><span class="hljs-keyword">let</span> instance = <span class="hljs-keyword">new</span> SubType();<br><span class="hljs-built_in">console</span>.log(instance.getSuperValue());<span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>缺点（1）引用类型值共享（2）子类型在实例化时不能向父类型的构造函数传递参数</p>
+</blockquote>
+</li>
+<li><ol start="2">
+<li>盗用构造函数</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SuperType</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.colors = [<span class="hljs-string">&quot;red&quot;</span>, <span class="hljs-string">&quot;blue&quot;</span>];<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SubType</span> (<span class="hljs-params"></span>) </span>&#123;<br>  SuperType.call(<span class="hljs-built_in">this</span>);<span class="hljs-comment">//借用父类构造器</span><br>&#125;<br><br><span class="hljs-keyword">let</span> instance1 = <span class="hljs-keyword">new</span> SubType();<br>instance1.colors.push(<span class="hljs-string">&quot;yellow&quot;</span>);<br><span class="hljs-built_in">console</span>.log(instance1.colors);<span class="hljs-comment">//&quot;red&quot;, &quot;blue&quot;, &quot;yellow&quot;</span><br><br><span class="hljs-keyword">let</span> instance2 = <span class="hljs-keyword">new</span> SubType();<br><span class="hljs-built_in">console</span>.log(instance2.colors);<span class="hljs-comment">//&quot;red&quot;, &quot;blue&quot;</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>优点（1）相对比原型链继承，盗用构造函数的一个优点是可以向父类构造函数传递参数（2）父类中的引用类型值不会共享；缺点（1）必须在函数中定义方法，因此函数不能重用，子类也不能访问父类原型上定义的方法。</p>
+</blockquote>
+</li>
+<li><ol start="3">
+<li>组合继承</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SuperType</span> (<span class="hljs-params">name</span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.name = name;<br>  <span class="hljs-built_in">this</span>.colors = [<span class="hljs-string">&quot;res&quot;</span>, <span class="hljs-string">&quot;blue&quot;</span>];<br>&#125;<br><br>SuperType.prototype.sayName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SubType</span> (<span class="hljs-params">name, age</span>) </span>&#123;<br>  SuperType.call(<span class="hljs-built_in">this</span>, name);<span class="hljs-comment">//第一次调用</span><br>  <span class="hljs-built_in">this</span>.age = age;<br>&#125;<br><br>SubType.prototype = <span class="hljs-keyword">new</span> SuperType();<span class="hljs-comment">//第二次调用</span><br><br>SubType.prototype.sayAge = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.age);<br>&#125;<br><br><span class="hljs-keyword">let</span> instance1 = <span class="hljs-keyword">new</span> SubType(<span class="hljs-string">&quot;suph&quot;</span>, <span class="hljs-number">24</span>);<br><span class="hljs-keyword">let</span> instance2 = <span class="hljs-keyword">new</span> SubType(<span class="hljs-string">&quot;hanipig&quot;</span>, <span class="hljs-number">25</span>);<br><br>instance1.colors.push(<span class="hljs-string">&quot;yellow&quot;</span>);<br><br><span class="hljs-built_in">console</span>.log(instance1.colors);<br><span class="hljs-built_in">console</span>.log(instance2.colors);<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用的最多，但并不完美，存在效率问题 =&gt; 父类构造函数被调用了两次</p>
+</blockquote>
+</li>
+<li><ol start="4">
+<li>原型式继承（Object.create()的实现）</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">//obj为需要继承的对象</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Object</span> (<span class="hljs-params">obj</span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> func = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;&#125;;<br>  func.prototype = obj;<span class="hljs-comment">//浅复制，实例都会共享此对象</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> func();<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><ol start="5">
+<li>寄生式继承</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Object2</span> (<span class="hljs-params">obj</span>)) </span>&#123;<br>  <span class="hljs-keyword">let</span> newObj = object(obj);<span class="hljs-comment">//object为 任何可返回对象的方法即可</span><br>  newObj.newProperty = <span class="hljs-string">&quot;anything&quot;</span>;<span class="hljs-comment">//在旧obj基础上添加任意属性</span><br>  <span class="hljs-keyword">return</span> newObj;<span class="hljs-comment">//即实现了继承旧对象又追加了新增的属性</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><ol start="6">
+<li>寄生组合式继承（在组合继承的基础上少调用了一次父类构造函数）</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">inheritPrototype</span> (<span class="hljs-params">child, parent</span>)) </span>&#123;<br>  <span class="hljs-keyword">let</span> prototype = object(parent.prototype);<span class="hljs-comment">//object为 任何可返回对象的方法即可</span><br>  prototype.constructor = child;<span class="hljs-comment">//修改prototype的construstor属性</span><br>  child.prototype = prototype;<span class="hljs-comment">//直接重写子类的原型对象</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SuperType</span> (<span class="hljs-params">name</span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.name = name;<br>  <span class="hljs-built_in">this</span>.colors = [<span class="hljs-string">&quot;res&quot;</span>, <span class="hljs-string">&quot;blue&quot;</span>];<br>&#125;<br><br>SuperType.prototype.sayName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SubType</span> (<span class="hljs-params">name, age</span>) </span>&#123;<br>  SuperType.call(<span class="hljs-built_in">this</span>, name);<span class="hljs-comment">//第一次调用</span><br>  <span class="hljs-built_in">this</span>.age = age;<br>&#125;<br><br>inheritPrototype(SubType, SuperType);<br><br>SubType.sayAge = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.age);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="Http-amp-amp-浏览器"><a href="#Http-amp-amp-浏览器" class="headerlink" title="Http &amp;&amp; 浏览器"></a>Http &amp;&amp; 浏览器</h2><ul>
+<li>浏览器缓存？http 缓存？ 主要要讲一讲强缓存、协商缓存、preload、prefetch、Service Worker 等，304 的含义？协商缓存 e-tag 是怎么生成的？Last-Modified 是基于什么生成的？两者对比一下？优先级哪个高？</li>
+<li>什么是跨域？什么情况下会跨域？浏览器根据什么字段判断是否允许跨域？跨域的解决方案有哪些？options 请求了解过吗？说说 CORS 中的简单请求和复杂请求？form 表单提交会跨域吗？</li>
+<li>讲一讲浏览器事件循环 Event Loop？node 事件循环描述一下？</li>
+<li>http2 有哪些新特性？http2 还有哪些缺陷？http3 的一些了解？</li>
+<li>从输入 URL 到页面加载完成的过程，一般要很详细的描述：包括 DNS 查询，缓存查询，3 次握手，4 次挥手，浏览器渲染进程等，面试官会从里面再挑几个问题深入问，比如为什么是 3 次握手 4 次挥手？渲染进程中的 GUI 渲染线程、JS 引擎线程、事件触发线程等等？可能会问到进程线程的区别？浏览器为什么是多进程？js 为什么是单线程？怎么支持多线程？等等</li>
+<li>https 加密原理？主要是讲对称加密和非对此加密结合使用的一个过程。什么是中间人攻击？和 http 区别？</li>
+</ul>
+<h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><ul>
+<li>生命周期？那个生命周期可以获取到真实 DOM？修改 data 里面的数据，会触发什么生命周期？</li>
+<li>组件 data 为什么是一个函数？</li>
+<li>vue 组件通信？一般说了 vuex，就会问 vuex 用法？action 和 mutations 区别？实现原理等？</li>
+<li>vue 导航守卫，分全局和组件的，一般用于权限控制，这个就可能扯到项目中的一些鉴权问题。</li>
+<li>$nextTick 作用？实现原理？微任务向宏任务的降级处理，经常被问到说出几种宏任务，微任务。</li>
+<li>vue 响应式原理？基本都会问</li>
+<li>vue scoped 属性作用？实现原理？</li>
+<li>vue router 有几种模式？实现方式？</li>
+<li>key 的作用？没有 key 的情况，vue 会怎么做？会引出 diff 的问题</li>
+<li>vue diff 过程，和 react diff 区别？</li>
+<li>vue 2.x defineProperty 缺陷？业务代码里面怎么处理？$set 原理？vue 是怎么重写数组方法的？考察你是不是真的看过源码</li>
+<li>vue 3.0 proxy 优缺点？怎么处理 vue3 不支持 IE？</li>
+<li>computed 和 watch 的区别和运用的场景？除了基本的，看你能不能说出三种 watcher 的区别</li>
+</ul>
+<h2 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h2><ul>
+<li><p>webpack 构建流程？打包原理？</p>
+<blockquote>
+<p>Webpack 的运行流程是一个串行的过程，从启动到结束会依次执行以下流程：</p>
+</blockquote>
+<ul>
+<li>初始化参数：从配置文件和 Shell 语句中读取与合并参数，得出最终的参数</li>
+<li>开始编译：用上一步得到的参数初始化 Compiler 对象，加载所有配置的插件，执行对象的 run 方法开始执行编译</li>
+<li>确定入口：根据配置中的 entry 找出所有的入口文件</li>
+<li>编译模块：从入口文件出发，调用所有配置的 Loader 对模块进行翻译，再找出该模块依赖的模块，再递归本步骤直到所有入口依赖的文件都经过了本步骤的处理</li>
+<li>完成模块编译：在经过第 4 步使用 Loader 翻译完所有模块后，得到了每个模块被翻译后的最终内容以及它们之间的依赖关系</li>
+<li>输出资源：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 Chunk，再把每个 Chunk 转换成一个单独的文件加入到输出列表，这步是可以修改输出内容的最后机会</li>
+<li>输出完成：在确定好输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统</li>
+</ul>
+<blockquote>
+<p>在以上过程中，Webpack 会在特定的时间点广播出特定的事件，插件在监听到感兴趣的事件后会执行特定的逻辑，并且插件可以调用 Webpack 提供的 API 改变 Webpack 的运行结果。简单说</p>
+</blockquote>
+<ul>
+<li>初始化：启动构建，读取与合并配置参数，加载 Plugin，实例化 Compiler</li>
+<li>编译：从 Entry 出发，针对每个 Module 串行调用对应的 Loader 去翻译文件的内容，再找到该 Module 依赖的 Module，递归地进行编译处理</li>
+<li>输出：将编译后的 Module 组合成 Chunk，将 Chunk 转换成文件，输出到文件系统中</li>
+</ul>
+</li>
+<li><p>项目中做的一些优化？</p>
+</li>
+<li><p>loader 和 plugin 的区别？有没有写过？常用哪些 loader 和 plugin</p>
+</li>
+<li><p>webpack 热跟新原理？</p>
+</li>
+<li><p>tree-shaking？对于 CommonJS，tree shaking 怎么办？</p>
+</li>
+<li><p>webpack loader 的执行顺序？从左到右？从上到下？</p>
+</li>
+</ul>
+<h2 id="tcp-三次握手四次挥手"><a href="#tcp-三次握手四次挥手" class="headerlink" title="tcp 三次握手四次挥手"></a>tcp 三次握手四次挥手</h2><ul>
+<li><ol>
+<li>TCP/IP 协议是传输层的一个面向连接的安全可靠的一个传输协议，三次握手的机制是为了保证能建立一个安全可靠的连接，那么第一次握手是由客户端发起，客户端会向服务端发送一个报文，在报文里面：SYN 标志位置为 1，表示发起新的连接。当服务端收到这个报文之后就知道客户端要和我建立一个新的连接，于是服务端就向客户端发送一个确认消息包，在这个消息包里面：ack 标志位置为 1，表示确认客户端发起的第一次连接请求。以上两次握手之后，对于客户端而言：已经明确了我既能给服务端成功发消息，也能成功收到服务端的响应。但是对于服务端而言：两次握手是不够的，因为到目前为止，服务端只知道一件事，客户端发给我的消息我能收到，但是我响应给客户端的消息，客户端能不能收到我是不知道的。所以，还需要进行第三次握手，第三次握手就是当客户端收到服务端发送的确认响应报文之后，还要继续去给服务端进行回应，也是一个 ack 标志位置 1 的确认消息。通过以上三次连接，不管是客户端还是服务端，都知道我既能给对方发送消息，也能收到对方的响应。那么，这个连接就被安全的建了。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>四次握手机制也是由客户端去发起，客户端会发送一个报文，在报文里面 FIN 位标志位置一，当服务端收到这个报文之后，我就知道了客户端想要和我断开连接，但是此时服务端不一定能做好准备，因为当客户端发起断开连接的这个消息的时候，对于服务端而言，他和还有可能有未发送完的消息，他还要继续发送，所以呢，此时对于服务端而言，我只能进行一个消息确认，就是我先告诉服务端，我知道你要给我断开连接了，但是我这里边还可能没有做好准备，你需要等我一下，等会儿我会告诉你，于是呢，发完这个消息确认包之后，可能稍过片刻它就会继续发送一个断开连接的一个报文啊，也是一个 FIN 位置 1 的报文也是由服务端发给客户端的啊，这个报文表示服务端已经做好了断开连接的准备，那么当这个报文发给客户端的时候，客户端同样要给服务端继续发送一个消息确认的报文一共有四次，那么，通过这四次的相互沟通和连接，我就知道了，不管是服务端还是客户端都已经做好了断开连接的准备，于是连接就可以被断开啊，这是我对三次握手和四次挥手的一个理解。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>当客户端进入 TIME-WAIT 状态的时候(也就是第四次挥手的时候)，必须经过时间计数器设置的时间 2MSL(最长报文段寿命)后，才能进入关闭状态，这时为什么呢？？？</li>
+</ol>
+<ul>
+<li><ol>
+<li>为了保证客户端发送的最后一个 ACK 报文段能够到达服务器。因为这个 ACK 有可能丢失，从而导致处在 LAST-ACK 状态的服务器收不到对 FIN-ACK 的确认报文。服务器会超时重传这个 FIN-ACK，接着客户端再重传一次确认，重新启动时间等待计时器。最后客户端和服务器都能正常的关闭。假设客户端不等待 2MSL，而是在发送完 ACK 之后直接释放关闭，一但这个 ACK 丢失的话，服务器就无法正常的进入关闭连接状态。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>他还可以防止已失效的报文段。客户端在发送最后一个 ACK 之后，再经过 2MSL，就可以使本链接持续时间内所产生的所有报文段都从网络中消失。从保证在关闭连接后不会有还在网络中滞留的报文段去骚扰服务器。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%AB%98%E9%A2%91/">高频</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/20/%E7%BB%8F%E5%85%B8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">TCP</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/20/Vue/">
+                        <span class="hidden-mobile">Vue总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        粤ICP备18061373号
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

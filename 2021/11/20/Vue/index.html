@@ -16,19 +16,20 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <meta name="description" content="关于页">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://example.com/about/index.html">
+  <meta name="description" content="vue-cli创建项目基本使用 插值表达式 v-html：有xss风险，会覆盖子组件 computed 有缓存，data不变则不会重新计算 watch 深度监听、监听引用类型，拿不到oldVal class和style 条件渲染 v-if v-show的区别，使用场景 v-for、遍历对象、key 的重要性、v-for 和 v-if不建议同时使用 事件、event参数，自定义参数、事件修饰符，按键">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue总结">
+<meta property="og:url" content="http://example.com/2021/11/20/Vue/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="关于页">
+<meta property="og:description" content="vue-cli创建项目基本使用 插值表达式 v-html：有xss风险，会覆盖子组件 computed 有缓存，data不变则不会重新计算 watch 深度监听、监听引用类型，拿不到oldVal class和style 条件渲染 v-if v-show的区别，使用场景 v-for、遍历对象、key 的重要性、v-for 和 v-if不建议同时使用 事件、event参数，自定义参数、事件修饰符，按键">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-11-20T14:07:42.000Z">
-<meta property="article:modified_time" content="2021-11-20T14:09:01.235Z">
+<meta property="article:published_time" content="2021-11-20T14:44:22.624Z">
+<meta property="article:modified_time" content="2021-11-20T15:05:27.428Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary_large_image">
   
-  <title>about - Hexo</title>
+  <title>Vue总结 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -73,7 +74,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -150,9 +151,43 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="about">
+            <span class="h2" id="subtitle" title="Vue总结">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-20 22:44" pubdate>
+        2021年11月20日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      3 分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -165,26 +200,179 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
+      
 
-<article class="page-content">
-  <h3 id="关于页"><a href="#关于页" class="headerlink" title="关于页"></a>关于页</h3>
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue总结</h1>
+            
+            <div class="markdown-body">
+              <h3 id="vue-cli创建项目"><a href="#vue-cli创建项目" class="headerlink" title="vue-cli创建项目"></a>vue-cli创建项目</h3><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><ul>
+<li>插值表达式</li>
+<li>v-html：有xss风险，会覆盖子组件</li>
+<li>computed 有缓存，data不变则不会重新计算</li>
+<li>watch 深度监听、监听引用类型，拿不到oldVal</li>
+<li>class和style</li>
+<li>条件渲染</li>
+<li>v-if v-show的区别，使用场景</li>
+<li>v-for、遍历对象、key 的重要性、v-for 和 v-if不建议同时使用</li>
+<li>事件、event参数，自定义参数、事件修饰符，按键修饰符、事件被绑定到哪里（event.target,event.currentTarget）？<blockquote>
+<p>1.event是原生的</p>
+<p>2.事件被挂载到当前元素</p>
+</blockquote>
+</li>
+<li>表单、v-model</li>
+</ul>
+<h3 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h3><ul>
+<li>props 和 $emit</li>
+<li>组件间通讯-自定义事件<blockquote>
+<p>父子间<br>任意层级间 自定义事件（$on、$off、$emit）</p>
+</blockquote>
+</li>
+<li>组件生命周期<blockquote>
+<p>单个组件（挂载、更新、销毁）</p>
+<p>父子组件：</p>
+<ol>
+<li>父组件beforeCreate –&gt; 父组件created –&gt; 父组件beforeMount  –&gt; 子组件beforeCreate –&gt; 子组件created –&gt; 子组件beforeMount  –&gt;  子组件 mounted  –&gt; 父组件mounted </li>
+<li>父组件beforeUpdate =&gt; 子组件beforeUpdate =&gt;子组件updated =&gt; 父组件updated</li>
+<li>父组件beforeDestroy =&gt; 子组件beforeDestroy =&gt; 子组件destroyed =&gt; 父组件destroyed</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h3 id="高级特性"><a href="#高级特性" class="headerlink" title="高级特性"></a>高级特性</h3><ul>
+<li>自定义v-model</li>
+<li>$nextTick<blockquote>
+<p>1.Vue是异步渲染的</p>
+<p>2.data改变后，Dom不会立刻渲染，会将多次修改data修改做整合</p>
+<p>3.$nextTick会在DOM渲染之后被触发，以获取最新DOM节点</p>
+</blockquote>
+</li>
+<li>slot<ul>
+<li>基本使用</li>
+<li>作用于插槽</li>
+<li>具名插槽</li>
+</ul>
+</li>
+<li>动态组件 conponent is</li>
+<li>异步组件<ul>
+<li>import()函数</li>
+<li>按需加载，异步加载大组件</li>
+</ul>
+</li>
+<li>keep-alive<ul>
+<li>缓存组件</li>
+<li>频繁切换，不需要重复渲染 </li>
+</ul>
+</li>
+<li>mixin<ul>
+<li>多个组件有相同的逻辑，抽离出来</li>
+<li> mixin并不是完美的解决方案，会有一些问题</li>
+<li> Vue3提出Composition API旨在解决这些问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h3><ul>
+<li><p>state</p>
+</li>
+<li><p>getters</p>
+</li>
+<li><p>actions</p>
+</li>
+<li><p>mutations（原子性操作）</p>
+</li>
+<li><p>dispatch</p>
+</li>
+<li><p>commit</p>
+</li>
+<li><p>mapState</p>
+</li>
+<li><p>mapGetters</p>
+</li>
+<li><p>mapActions</p>
+</li>
+<li><p>mapMutations</p>
+</li>
+</ul>
+<h3 id="vue-router"><a href="#vue-router" class="headerlink" title="vue-router"></a>vue-router</h3><ul>
+<li>路由模式（hash、H5 history）</li>
+<li>路由配置（动态路由、懒加载）</li>
+</ul>
 
-  
-</article>
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/20/%E9%AB%98%E9%A2%91/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">高频</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/20/Vue%E5%8E%9F%E7%90%86/">
+                        <span class="hidden-mobile">Vue 原理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
