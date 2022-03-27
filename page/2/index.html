@@ -17,14 +17,14 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   <meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="http://example.com/archives/2021/11/index.html">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/2/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
-  <title>归档 - Hexo</title>
+  <title>Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -54,7 +54,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -126,18 +126,22 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/assets/banner/home_banner.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="小谢的博客">
               
             </span>
 
             
           </div>
 
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
           
         </div>
       </div>
@@ -148,78 +152,78 @@
     
       <div class="container nopadding-x-md">
         <div class="py-5" id="board"
-          >
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">共计 11 篇文章</p>
-  <hr>
-  
-  
+
+  <div class="row mx-auto index-card">
     
-      
-      <p class="h5">2021</p>
     
-    <a href="/2021/11/21/%E9%87%8D%E5%AD%A6_01/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">重学_01 &lt;script&gt;标签常见属性，js加载机制</span>
-      <time style="float: right;">11-21</time>
-    </a>
-  
-    
-    <a href="/2021/11/20/%E7%BB%8F%E5%85%B8/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">TCP</span>
-      <time style="float: right;">11-20</time>
-    </a>
-  
-    
-    <a href="/2021/11/20/%E9%AB%98%E9%A2%91/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">高频</span>
-      <time style="float: right;">11-20</time>
-    </a>
-  
-    
-    <a href="/2021/11/20/Vue/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Vue总结</span>
-      <time style="float: right;">11-20</time>
-    </a>
-  
-    
-    <a href="/2021/11/20/Vue%E5%8E%9F%E7%90%86/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Vue 原理</span>
-      <time style="float: right;">11-20</time>
-    </a>
-  
-    
-    <a href="/2021/11/20/Webpack/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Webpack</span>
-      <time style="float: right;">11-20</time>
-    </a>
-  
-    
-    <a href="/2021/11/20/%E5%B8%B8%E8%A7%81%E6%89%8B%E5%86%99%E9%A2%98/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">常见手写题</span>
-      <time style="float: right;">11-20</time>
-    </a>
-  
-    
-    <a href="/2021/11/20/css/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">CSS</span>
-      <time style="float: right;">11-20</time>
-    </a>
-  
-    
-    <a href="/2021/11/20/http/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">HTTP相关</span>
-      <time style="float: right;">11-20</time>
-    </a>
-  
-</div>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/11/20/http/" target="_self">
+          HTTP相关
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/11/20/http/" target="_self">
+          
+          
+            
+          
+          请求方法
+
+GET：发送一个请求获取服务器上的某一资源
+POST：向 URL 指定的资源提交数据或附加新的数据
+PUT：跟 POST 很像，也是向服务器提交数据。但是，他们之前有不同。PUT 指定了资源在服务器上的位置，而 POST 没有
+HEAD：只请求页面的首部
+DELETE：删除服务器上的某资源
+OPTIONS：用于获取当前 URL 所支持的方法。如果请求成功，会有一个 Allow 的头包含
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-11-20 22:44" pubdate>
+              2021-11-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/HTTP/">HTTP</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
 
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </span>
+  </nav>
 
 
 

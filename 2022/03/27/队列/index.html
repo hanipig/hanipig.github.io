@@ -1,0 +1,480 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <meta name="description" content="队列 队列是遵循先进先出（FIFO，也称为先来先服务）原则的一组有序的项。队列在尾部添加新元素，并从顶部移出元素。最新添加的元素必须排在队列的末尾。  队列实现 enqueue(element(s))：向队列尾部添加一个（或多个）新的项。 dequeue()：移除队列的第一项（即排在队列最前面的项）并返回被移除的元素。 peek()：返回队列中第一个元素（不会移除，仅返回）。 isEmpty()：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript数据结构-队列">
+<meta property="og:url" content="http://example.com/2022/03/27/%E9%98%9F%E5%88%97/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="队列 队列是遵循先进先出（FIFO，也称为先来先服务）原则的一组有序的项。队列在尾部添加新元素，并从顶部移出元素。最新添加的元素必须排在队列的末尾。  队列实现 enqueue(element(s))：向队列尾部添加一个（或多个）新的项。 dequeue()：移除队列的第一项（即排在队列最前面的项）并返回被移除的元素。 peek()：返回队列中第一个元素（不会移除，仅返回）。 isEmpty()：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-27T11:51:52.890Z">
+<meta property="article:modified_time" content="2022-03-27T11:52:11.080Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>JavaScript数据结构-队列 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Hanipig</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JavaScript数据结构-队列">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-27 19:51" pubdate>
+        2022年3月27日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JavaScript数据结构-队列</h1>
+            
+            <div class="markdown-body">
+              <h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><blockquote>
+<p>队列是遵循<strong>先进先出</strong>（FIFO，也称为先来先服务）原则的一组有序的项。队列在尾部添加新元素，并从顶部移出元素。最新添加的元素必须排在队列的末尾。</p>
+</blockquote>
+<h3 id="队列实现"><a href="#队列实现" class="headerlink" title="队列实现"></a>队列实现</h3><ul>
+<li>enqueue(element(s))：向队列尾部添加一个（或多个）新的项。</li>
+<li>dequeue()：移除队列的第一项（即排在队列最前面的项）并返回被移除的元素。</li>
+<li>peek()：返回队列中第一个元素（不会移除，仅返回）。</li>
+<li>isEmpty()：如果队列中不包含任何元素，返回true，否则返回false。</li>
+<li>size()：返回队列包含的元素个数。</li>
+<li>clear()：清空队列。</li>
+<li>toString()</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-keyword">const</span> _queueInfo = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>();<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Queue</span> </span>&#123;<br>  <span class="hljs-title">constructor</span> (<span class="hljs-params"></span>) &#123;  <br>    _queueInfo.set(<span class="hljs-built_in">this</span>, &#123;<br>      <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-comment">// 记录队列的大小</span><br>      <span class="hljs-attr">firstCount</span>: <span class="hljs-number">0</span>, <span class="hljs-comment">// 队首下标</span><br>      <span class="hljs-attr">items</span>: &#123;&#125;<br>    &#125;);<br>  &#125;<br><br>  enqueue () &#123;<br>    <span class="hljs-keyword">const</span> queueInfo = _queueInfo.get(<span class="hljs-built_in">this</span>); <br>    <span class="hljs-keyword">let</span> elements = <span class="hljs-built_in">Array</span>.from(<span class="hljs-built_in">arguments</span>);<br>    <br>    elements.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;<br>      queueInfo.items[queueInfo.count] = item;<br>      queueInfo.count++;<br>    &#125;)<br>  &#125;<br><br>  dequeue () &#123;<br>    <span class="hljs-keyword">const</span> queueInfo = _queueInfo.get(<span class="hljs-built_in">this</span>); <br>    <br>    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">this</span>.isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;<br><br>    <span class="hljs-keyword">let</span> targetItem = queueInfo.items[queueInfo.firstCount];<br>    <span class="hljs-keyword">delete</span> queueInfo.items[queueInfo.firstCount];<br>    queueInfo.firstCount++; <span class="hljs-comment">// 队首下标加一</span><br>    <span class="hljs-keyword">return</span> targetItem;<br>  &#125;<br><br>  peek () &#123;<br>    <span class="hljs-keyword">const</span> queueInfo = _queueInfo.get(<span class="hljs-built_in">this</span>);<br>    <br>    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">this</span>.isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;<br><br>    <span class="hljs-keyword">return</span> queueInfo.items[queueInfo.firstCount];<br>  &#125;<br><br>  isEmpty () &#123;<br>    <span class="hljs-keyword">const</span> queueInfo = _queueInfo.get(<span class="hljs-built_in">this</span>); <br>    <span class="hljs-keyword">return</span> queueInfo.count - queueInfo.firstCount === <span class="hljs-number">0</span>;<br>  &#125;<br><br>  size () &#123;<br>    <span class="hljs-keyword">const</span> queueInfo = _queueInfo.get(<span class="hljs-built_in">this</span>);<br>    <span class="hljs-keyword">return</span> queueInfo.count - queueInfo.firstCount;<br>  &#125;<br><br>  clear () &#123;<br>    _queueInfo.set(<span class="hljs-built_in">this</span>, &#123;<br>      <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>,<br>      <span class="hljs-attr">firstCount</span>: <span class="hljs-number">0</span>,<br>      <span class="hljs-attr">items</span>: &#123;&#125;<br>    &#125;);<br>  &#125;<br><br>  toString () &#123;<br>    <span class="hljs-keyword">const</span> queueInfo = _queueInfo.get(<span class="hljs-built_in">this</span>);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>;<br>    <br>    <span class="hljs-keyword">let</span> str = queueInfo.items[queueInfo.firstCount];<br>    <br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = queueInfo.firstCount + <span class="hljs-number">1</span>; i &lt; queueInfo.count; i++) &#123;<br>      str =  <span class="hljs-string">`<span class="hljs-subst">$&#123;str&#125;</span>,<span class="hljs-subst">$&#123;queueInfo.items[i]&#125;</span>`</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> str;<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">/* 测试代码 start */</span><br><span class="hljs-keyword">let</span> queue = <span class="hljs-keyword">new</span> Queue();<br><span class="hljs-built_in">console</span>.log(queue.isEmpty());<br>queue.enqueue(<span class="hljs-string">&#x27;元素1&#x27;</span>, <span class="hljs-string">&#x27;元素2&#x27;</span>);<br><span class="hljs-built_in">console</span>.log(queue.isEmpty(), queue.size(), queue.toString());<br>queue.dequeue();<br><span class="hljs-built_in">console</span>.log(queue.isEmpty(), queue.size(), queue.toString());<br><span class="hljs-built_in">console</span>.log(queue.peek());<br>queue.clear();<br><span class="hljs-built_in">console</span>.log(queue.isEmpty(), queue.size(), queue.toString());<br><span class="hljs-comment">/* 测试代码 end */</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="双端队列"><a href="#双端队列" class="headerlink" title="双端队列"></a>双端队列</h2><blockquote>
+<p>双端队列是一种允许我们同时从前端和后端添加和移除元素的特殊队列（同时遵守了先进先出和后进先出原则，队列和栈的结合）。</p>
+</blockquote>
+<h3 id="双端队列实现"><a href="#双端队列实现" class="headerlink" title="双端队列实现"></a>双端队列实现</h3><ul>
+<li>addFront(element(s))：在双端队列前端部添加一个（或多个）新的项。</li>
+<li>addBack(element(s))：在双端队列后端部添加一个（或多个）新的项。</li>
+<li>removeFront()：从双端队列前端移除第一个元素，并返回被移除的元素。</li>
+<li>removeBack()：从双端队列后端移除第一个元素，并返回被移除的元素。</li>
+<li>peekFront()：返回双端队列前端中第一个元素（不会移除，仅返回）。</li>
+<li>peekBack()：返回双端队列后端中第一个元素（不会移除，仅返回）。</li>
+<li>isEmpty()：如果队列中不包含任何元素，返回true，否则返回false。</li>
+<li>size()：返回队列包含的元素个数。</li>
+<li>clear()：清空队列。</li>
+<li>toString()</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-keyword">const</span> _dequeInfo = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>();<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Deque</span> </span>&#123;<br>  <span class="hljs-title">constructor</span> (<span class="hljs-params"></span>) &#123;  <br>    _dequeInfo.set(<span class="hljs-built_in">this</span>, &#123;<br>      <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-comment">// 记录队列的大小</span><br>      <span class="hljs-attr">firstCount</span>: <span class="hljs-number">0</span>, <span class="hljs-comment">// 队首下标</span><br>      <span class="hljs-attr">items</span>: &#123;&#125;<br>    &#125;);<br>  &#125;<br><br>  addFront () &#123;<br>    <span class="hljs-comment">/* </span><br><span class="hljs-comment">     * 前端入队会有三种情况</span><br><span class="hljs-comment">     * 1、队列为空</span><br><span class="hljs-comment">     * 2、队列不为空 &amp;&amp; firstCount &gt; 0（无需往后移动队列元素）</span><br><span class="hljs-comment">     * 3、队列不为空 &amp;&amp; firstCount = 0（需往后移动队列元素）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">const</span> dequeInfo = _dequeInfo.get(<span class="hljs-built_in">this</span>); <br>    <span class="hljs-keyword">let</span> elements = <span class="hljs-built_in">Array</span>.from(<span class="hljs-built_in">arguments</span>);<br>    <br>    elements.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.isEmpty()) &#123;<br>        <span class="hljs-built_in">this</span>.addBack(item);<br>      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (dequeInfo.firstCount &gt; <span class="hljs-number">0</span>) &#123;<br>        dequeInfo.firstCount--;<br>        dequeInfo.items[dequeInfo.firstCount] = item;<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = dequeInfo.count; i &gt; <span class="hljs-number">0</span>; i--) &#123;<br>          dequeInfo.items[i] = dequeInfo.items[i - <span class="hljs-number">1</span>]; <span class="hljs-comment">// 依次往后挪一位</span><br>        &#125;<br>        dequeInfo.count++;<br>        dequeInfo.firstCount = <span class="hljs-number">0</span>;<br>        dequeInfo.items[<span class="hljs-number">0</span>] = item;<br>      &#125;<br>    &#125;)<br>  &#125;<br><br>  addBack () &#123;<br>    <span class="hljs-keyword">const</span> dequeInfo = _dequeInfo.get(<span class="hljs-built_in">this</span>); <br>    <span class="hljs-keyword">let</span> elements = <span class="hljs-built_in">Array</span>.from(<span class="hljs-built_in">arguments</span>);<br>    <br>    elements.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;<br>      dequeInfo.items[dequeInfo.count] = item;<br>      dequeInfo.count++;<br>    &#125;)<br>  &#125;<br><br>  removeFront () &#123;<br>    <span class="hljs-keyword">const</span> dequeInfo = _dequeInfo.get(<span class="hljs-built_in">this</span>); <br>    <br>    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">this</span>.isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;<br><br>    <span class="hljs-keyword">let</span> targetItem = dequeInfo.items[dequeInfo.firstCount];<br>    <span class="hljs-keyword">delete</span> dequeInfo.items[dequeInfo.firstCount];<br>    dequeInfo.firstCount++; <span class="hljs-comment">// 队首下标加一</span><br>    <span class="hljs-keyword">return</span> targetItem;<br>  &#125;<br><br>  removeBack () &#123;<br>    <span class="hljs-keyword">const</span> dequeInfo = _dequeInfo.get(<span class="hljs-built_in">this</span>); <br>    <br>    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">this</span>.isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;<br><br>    dequeInfo.count--; <span class="hljs-comment">// 需要--，否则peekBack的实现会有问题</span><br>    <span class="hljs-keyword">let</span> targetItem = dequeInfo.items[dequeInfo.count];<br>    <span class="hljs-keyword">delete</span> dequeInfo.items[dequeInfo.count];<br>    <span class="hljs-keyword">return</span> targetItem;<br>  &#125;<br><br>  peekFront () &#123;<br>    <span class="hljs-keyword">const</span> dequeInfo = _dequeInfo.get(<span class="hljs-built_in">this</span>);<br>    <br>    <span class="hljs-keyword">if</span>(!dequeInfo.count) <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;<br><br>    <span class="hljs-keyword">return</span> dequeInfo.items[dequeInfo.firstCount];<br>  &#125;<br><br>  peekBack () &#123;<br>    <span class="hljs-keyword">const</span> dequeInfo = _dequeInfo.get(<span class="hljs-built_in">this</span>);<br>    <br>    <span class="hljs-keyword">if</span>(!dequeInfo.count) <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;<br><br>    <span class="hljs-keyword">return</span> dequeInfo.items[dequeInfo.count - <span class="hljs-number">1</span>];<br>  &#125;<br><br>  isEmpty () &#123;<br>    <span class="hljs-keyword">const</span> dequeInfo = _dequeInfo.get(<span class="hljs-built_in">this</span>); <br>    <span class="hljs-keyword">return</span> dequeInfo.count - dequeInfo.firstCount === <span class="hljs-number">0</span>;<br>  &#125;<br><br>  size () &#123;<br>    <span class="hljs-keyword">const</span> dequeInfo = _dequeInfo.get(<span class="hljs-built_in">this</span>);<br>    <span class="hljs-keyword">return</span> dequeInfo.count - dequeInfo.firstCount;<br>  &#125;<br><br>  clear () &#123;<br>    _dequeInfo.set(<span class="hljs-built_in">this</span>, &#123;<br>      <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>,<br>      <span class="hljs-attr">firstCount</span>: <span class="hljs-number">0</span>,<br>      <span class="hljs-attr">items</span>: &#123;&#125;<br>    &#125;);<br>  &#125;<br><br>  toString () &#123;<br>    <span class="hljs-keyword">const</span> dequeInfo = _dequeInfo.get(<span class="hljs-built_in">this</span>);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>;<br>    <br>    <span class="hljs-keyword">let</span> str = dequeInfo.items[dequeInfo.firstCount];<br>    <br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = dequeInfo.firstCount + <span class="hljs-number">1</span>; i &lt; dequeInfo.count; i++) &#123;<br>      str =  <span class="hljs-string">`<span class="hljs-subst">$&#123;str&#125;</span>,<span class="hljs-subst">$&#123;dequeInfo.items[i]&#125;</span>`</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> str;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="队列使用"><a href="#队列使用" class="headerlink" title="队列使用"></a>队列使用</h2><h3 id="循环队列-击鼓传花游戏"><a href="#循环队列-击鼓传花游戏" class="headerlink" title="循环队列-击鼓传花游戏"></a>循环队列-击鼓传花游戏</h3><blockquote>
+<p>在这个游戏中，孩子们围成一个圆圈，把花尽快地传递给旁边的人。某一时刻传花停止，<br>这个时候花在谁手里，谁就退出圆圈、结束游戏。重复这个过程，直到只剩一个孩子（胜者）。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@description </span>实现一个模拟的击鼓传花游戏</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param <span class="hljs-type">&#123;array&#125;</span> </span>elementsList 游戏成员名单</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param <span class="hljs-type">&#123;number&#125;</span> </span>num 指定的传递次数</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return <span class="hljs-type">&#123;obj&#125;</span> </span></span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">const</span> hotPotato = <span class="hljs-function">(<span class="hljs-params">elementsList = [], num</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">let</span> queue = <span class="hljs-keyword">new</span> Queue();<br>  <span class="hljs-keyword">let</span> elimitatedList = []; <span class="hljs-comment">// 淘汰名单</span><br>  elementsList.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;<br>    queue.enqueue(item);<br>  &#125;);<br><br>  <span class="hljs-keyword">while</span> (queue.size() &gt; <span class="hljs-number">1</span>) &#123; <span class="hljs-comment">// 直到只剩一人，停止游戏 </span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; num; i++) &#123;<br>      queue.enqueue(queue.dequeue()); <span class="hljs-comment">// 模拟循环队列：出队后重新入队</span><br>    &#125;<br>    elimitatedList.push(queue.dequeue()); <span class="hljs-comment">// 传递一定次数后，把当前花停留的成员淘汰（队首出队）</span><br>  &#125;<br><br>  <span class="hljs-keyword">return</span> &#123;<br>    elimitatedList,<br>    <span class="hljs-attr">winner</span>: queue.dequeue()<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> names = [<span class="hljs-string">&#x27;John&#x27;</span>, <span class="hljs-string">&#x27;Jack&#x27;</span>, <span class="hljs-string">&#x27;Camila&#x27;</span>, <span class="hljs-string">&#x27;Ingrid&#x27;</span>, <span class="hljs-string">&#x27;Carl&#x27;</span>];<br><span class="hljs-keyword">const</span> result = hotPotato(names, <span class="hljs-number">7</span>); <br>result.eliminated.forEach(<span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">$&#123;name&#125;</span>在击鼓传花游戏中被淘汰。`</span>);<br>&#125;);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">`胜利者： <span class="hljs-subst">$&#123;result.winner&#125;</span>`</span>); <br></code></pre></td></tr></table></figure>
+
+<h3 id="回文检查器"><a href="#回文检查器" class="headerlink" title="回文检查器"></a>回文检查器</h3><blockquote>
+<p>回文是正反都能读通的单词、词组、数或一系列字符的序列，例如 madam或 racecar。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@description </span>回文检查器</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param <span class="hljs-type">&#123;string&#125;</span> </span>elementsList 游戏成员名单</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return <span class="hljs-type">&#123;boolean&#125;</span> </span></span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">const</span> palindromeChecker = <span class="hljs-function">(<span class="hljs-params">aString</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">if</span> (aString == <span class="hljs-literal">null</span> || aString.length === <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br><br>  <span class="hljs-keyword">const</span> deque = <span class="hljs-keyword">new</span> Deque();<br>  <span class="hljs-keyword">const</span> lowerString = aString.toLocaleLowerCase().split(<span class="hljs-string">&#x27; &#x27;</span>).join(<span class="hljs-string">&#x27;&#x27;</span>);<br>  <span class="hljs-keyword">let</span> isEqual = <span class="hljs-literal">true</span>;<br>  <span class="hljs-keyword">let</span> firstChar, lastChar;<br><br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; lowerString.length; i++) &#123;<br>    deque.addBack(lowerString.charAt[i]);<br>  &#125;<br><br>  <span class="hljs-keyword">while</span> (deque.size() &gt; <span class="hljs-number">1</span> &amp;&amp; isEqual) &#123;<br>    firstChar = deque.removeFront();<br>    lastChar = deque.removeBack();<br>    <span class="hljs-keyword">if</span> (firstChar !== lastChar) &#123;<br>      isEqual = <span class="hljs-literal">false</span><br>    &#125; <br>  &#125;<br><br>  <span class="hljs-keyword">return</span> isEqual;<br>&#125;<br><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;a&#x27;</span>, palindromeChecker(<span class="hljs-string">&#x27;a&#x27;</span>));<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;aa&#x27;</span>, palindromeChecker(<span class="hljs-string">&#x27;aa&#x27;</span>));<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;kayak&#x27;</span>, palindromeChecker(<span class="hljs-string">&#x27;kayak&#x27;</span>));<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;level&#x27;</span>, palindromeChecker(<span class="hljs-string">&#x27;level&#x27;</span>));<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Was it a car or a cat I saw&#x27;</span>, palindromeChecker(<span class="hljs-string">&#x27;Was it a car</span><br><span class="hljs-string">or a cat I saw&#x27;</span>));<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Step on no pets&#x27;</span>, palindromeChecker(<span class="hljs-string">&#x27;Step on no pets&#x27;</span>)); <br><br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/27/%E6%A0%88/">
+                        <span class="hidden-mobile">JavaScript数据结构-栈</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        粤ICP备18061373号
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

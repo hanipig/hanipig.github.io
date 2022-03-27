@@ -16,20 +16,17 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <meta name="description" content="从输入 URL 到页面加载发生了什么？ 1.浏览器的地址栏输入 URL 并按下回车 2.浏览器查找当前 URL 是否存在缓存，并比较缓存是否过期 3.DNS 解析 URL 对应的 ip 4.根据 ip 建立 TCP 连接（三次握手） 5.HTTP 发起请求 6.服务器处理请求，浏览器接收 HTTP 响应 7.渲染页面，构建 DOM 树 8.关闭 TCP 连接   可能会牵扯到 DNS 缓存、浏览器">
-<meta property="og:type" content="article">
-<meta property="og:title" content="TCP">
-<meta property="og:url" content="http://example.com/2021/11/20/%E7%BB%8F%E5%85%B8/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="重学_01 &lt;script&gt;标签常见属性，js加载机制">
+<meta property="og:url" content="http://example.com/2021/11/21/%E9%87%8D%E5%AD%A6_01/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="从输入 URL 到页面加载发生了什么？ 1.浏览器的地址栏输入 URL 并按下回车 2.浏览器查找当前 URL 是否存在缓存，并比较缓存是否过期 3.DNS 解析 URL 对应的 ip 4.根据 ip 建立 TCP 连接（三次握手） 5.HTTP 发起请求 6.服务器处理请求，浏览器接收 HTTP 响应 7.渲染页面，构建 DOM 树 8.关闭 TCP 连接   可能会牵扯到 DNS 缓存、浏览器">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-11-20T14:50:25.617Z">
-<meta property="article:modified_time" content="2021-11-20T15:06:30.437Z">
+<meta property="article:published_time" content="2021-11-21T13:36:52.626Z">
+<meta property="article:modified_time" content="2021-11-21T13:40:50.245Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="经典">
 <meta name="twitter:card" content="summary_large_image">
   
-  <title>TCP - Hexo</title>
+  <title>重学_01 &lt;script&gt;标签常见属性，js加载机制 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -151,7 +148,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="TCP">
+            <span class="h2" id="subtitle" title="重学_01 &lt;script&gt;标签常见属性，js加载机制">
               
             </span>
 
@@ -161,8 +158,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-11-20 22:50" pubdate>
-        2021年11月20日 晚上
+      <time datetime="2021-11-21 21:36" pubdate>
+        2021年11月21日 晚上
       </time>
     </span>
   
@@ -172,7 +169,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      0 字
     </span>
   
 
@@ -181,7 +178,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6 分钟
+      1 分钟
     </span>
   
 
@@ -210,97 +207,10 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">TCP</h1>
+            <h1 style="display: none">重学_01 &lt;script&gt;标签常见属性，js加载机制</h1>
             
             <div class="markdown-body">
-              <h2 id="从输入-URL-到页面加载发生了什么？"><a href="#从输入-URL-到页面加载发生了什么？" class="headerlink" title="从输入 URL 到页面加载发生了什么？"></a>从输入 URL 到页面加载发生了什么？</h2><ul>
-<li>1.浏览器的地址栏输入 URL 并按下回车</li>
-<li>2.浏览器查找当前 URL 是否存在缓存，并比较缓存是否过期</li>
-<li>3.DNS 解析 URL 对应的 ip</li>
-<li>4.根据 ip 建立 TCP 连接（三次握手）</li>
-<li>5.HTTP 发起请求</li>
-<li>6.服务器处理请求，浏览器接收 HTTP 响应</li>
-<li>7.渲染页面，构建 DOM 树</li>
-<li>8.关闭 TCP 连接</li>
-</ul>
-<blockquote>
-<p>可能会牵扯到 DNS 缓存、浏览器缓存、TCP 三次握手、TCP 四次握手、浏览器渲染原理、HTPP 状态码</p>
-</blockquote>
-<h3 id="DNS-缓存（浏览器、操作系统、Local-DNS、根域名服务器）"><a href="#DNS-缓存（浏览器、操作系统、Local-DNS、根域名服务器）" class="headerlink" title="DNS 缓存（浏览器、操作系统、Local DNS、根域名服务器）"></a>DNS 缓存（浏览器、操作系统、Local DNS、根域名服务器）</h3><blockquote>
-<ol>
-<li>首先搜索浏览器自身的 DNS 缓存，如果存在，则域名解析到此完成</li>
-<li>如果浏览器自身的缓存里面没有找到对应的条目，那么会尝试读取操作系统的 hosts 文件查看是否存在对应的映射关系，如果存在。。</li>
-<li>如果本地 hosts 文件不存在映射关系，则查找本地 DNS 服务器，如果存在。。</li>
-<li>如果本地 DNS 服务器还没找到的话，他就会向根服务器发出请求，进行递归查询</li>
-</ol>
-</blockquote>
-<h3 id="TCP-三次握手、四次挥手"><a href="#TCP-三次握手、四次挥手" class="headerlink" title="TCP 三次握手、四次挥手"></a>TCP 三次握手、四次挥手</h3><ul>
-<li><ol>
-<li>TCP/IP 协议是传输层的一个面向连接的安全可靠的一个传输协议，三次握手的机制是为了保证能建立一个安全可靠的连接，那么第一次握手是由客户端发起，客户端会向服务端发送一个报文，在报文里面：SYN 标志位置为 1，表示发起新的连接。当服务端收到这个报文之后就知道客户端要和我建立一个新的连接，于是服务端就向客户端发送一个确认消息包，在这个消息包里面：ack 标志位置为 1，表示确认客户端发起的第一次连接请求。以上两次握手之后，对于客户端而言：已经明确了我既能给服务端成功发消息，也能成功收到服务端的响应。但是对于服务端而言：两次握手是不够的，因为到目前为止，服务端只知道一件事，客户端发给我的消息我能收到，但是我响应给客户端的消息，客户端能不能收到我是不知道的。所以，还需要进行第三次握手，第三次握手就是当客户端收到服务端发送的确认响应报文之后，还要继续去给服务端进行回应，也是一个 ack 标志位置 1 的确认消息。通过以上三次连接，不管是客户端还是服务端，都知道我既能给对方发送消息，也能收到对方的响应。那么，这个连接就被安全的建了。</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>四次握手机制也是由客户端去发起，客户端会发送一个报文，在报文里面 FIN 位标志位置一，当服务端收到这个报文之后，我就知道了客户端想要和我断开连接，但是此时服务端不一定能做好准备，因为当客户端发起断开连接的这个消息的时候，对于服务端而言，他和还有可能有未发送完的消息，他还要继续发送，所以呢，此时对于服务端而言，我只能进行一个消息确认，就是我先告诉服务端，我知道你要给我断开连接了，但是我这里边还可能没有做好准备，你需要等我一下，等会儿我会告诉你，于是呢，发完这个消息确认包之后，可能稍过片刻它就会继续发送一个断开连接的一个报文啊，也是一个 FIN 位置 1 的报文也是由服务端发给客户端的啊，这个报文表示服务端已经做好了断开连接的准备，那么当这个报文发给客户端的时候，客户端同样要给服务端继续发送一个消息确认的报文一共有四次，那么，通过这四次的相互沟通和连接，我就知道了，不管是服务端还是客户端都已经做好了断开连接的准备，于是连接就可以被断开啊，这是我对三次握手和四次挥手的一个理解。</li>
-</ol>
-</li>
-<li><ol start="3">
-<li>当客户端进入 TIME-WAIT 状态的时候(也就是第四次挥手的时候)，必须经过时间计数器设置的时间 2MSL(最长报文段寿命)后，才能进入关闭状态，这时为什么呢？？？</li>
-</ol>
-<ul>
-<li><ol>
-<li>为了保证客户端发送的最后一个 ACK 报文段能够到达服务器。因为这个 ACK 有可能丢失，从而导致处在 LAST-ACK 状态的服务器收不到对 FIN-ACK 的确认报文。服务器会超时重传这个 FIN-ACK，接着客户端再重传一次确认，重新启动时间等待计时器。最后客户端和服务器都能正常的关闭。假设客户端不等待 2MSL，而是在发送完 ACK 之后直接释放关闭，一但这个 ACK 丢失的话，服务器就无法正常的进入关闭连接状态。</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>他还可以防止已失效的报文段。客户端在发送最后一个 ACK 之后，再经过 2MSL，就可以使本链接持续时间内所产生的所有报文段都从网络中消失。从保证在关闭连接后不会有还在网络中滞留的报文段去骚扰服务器。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h3><blockquote>
-<ol>
-<li>什么是浏览器缓存？浏览器缓存其实就是浏览器保存通过 HTTP 获取的所有资源,是浏览器将网络资源存储在本地的一种行为。</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="2">
-<li>缓存的资源存储在哪？有啥区别？memory cache、disk cache</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="3">
-<li>浏览器缓存的分类？</li>
-</ol>
-<ul>
-<li><ol>
-<li>强缓存：Expires、Cache-Control</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>协商缓存：Last-Modify/If-Modify-Since、Etag/If-None-Match</li>
-</ol>
-</li>
-</ul>
-<ol start="4">
-<li>浏览器缓存的优点？</li>
-</ol>
-<ul>
-<li><ol>
-<li>减少了冗余的数据传输</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>减少了服务器的负担，大大提升了网站的性能</li>
-</ol>
-</li>
-<li><ol start="3">
-<li>加快了客户端加载网页的速度</li>
-</ol>
-</li>
-</ul>
-</blockquote>
-<h3 id="浏览器渲染原理"><a href="#浏览器渲染原理" class="headerlink" title="浏览器渲染原理"></a>浏览器渲染原理</h3><h3 id="常见的-HTTP-状态码"><a href="#常见的-HTTP-状态码" class="headerlink" title="常见的 HTTP 状态码"></a>常见的 HTTP 状态码</h3>
+              
             </div>
             <hr>
             <div>
@@ -309,17 +219,10 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+                      <a class="hover-with-bg" href="/categories/%E9%87%8D%E5%AD%A6JS/">重学JS</a>
                     
                   </div>
                 
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/%E7%BB%8F%E5%85%B8/">经典</a>
-                    
-                  </div>
                 
               </div>
               
@@ -328,9 +231,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/11/21/%E9%87%8D%E5%AD%A6_01/">
+                      <a href="/2022/03/27/%E6%A0%88/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">重学_01 <script>标签常见属性，js加载机制</span>
+                        <span class="hidden-mobile">JavaScript数据结构-栈</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -338,8 +241,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/11/20/%E9%AB%98%E9%A2%91/">
-                        <span class="hidden-mobile">高频</span>
+                      <a href="/2021/11/20/%E7%BB%8F%E5%85%B8/">
+                        <span class="hidden-mobile">TCP</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
